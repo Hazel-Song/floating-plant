@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model PlantData {
+  id                Int      @id @default(autoincrement())
+  timestamp         DateTime @default(now())
+  
+  // 环境数据
+  temperature       Float    // 温度
+  humidity          Float    // 湿度
+  lightIntensity    Float    // 光照强度
+  soilMoisture      Float    // 土壤湿度
+  soilPh            Float    // 土壤pH值
+  airQuality        Float    // 空气质量
+  
+  // 植物生理数据
+  leafColor         String   // 叶片颜色
+  leafSize          Float    // 叶片大小
+  stemHeight        Float    // 茎高度
+  rootHealth        String   // 根系健康状况
+  growthRate        Float    // 生长速度
+  
+  // 图像数据
+  imageUrl          String?  // 植物照片URL
+  
+  // 分析结果
+  healthScore       Float?   // 健康评分
+  analysisResult    String?  // 分析结果
+  recommendations   String?  // 建议
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AgentConversation {
+  id                Int      @id @default(autoincrement())
+  plantDataId       Int
+  agentType         String   // "physiological", "environmental", "validation"
+  message           String
+  round             Int      // 对话轮次
+  timestamp         DateTime @default(now())
+  
+  plantData         PlantData @relation(fields: [plantDataId], references: [id])
+}
+
+model MetaAnalysis {
+  id                Int      @id @default(autoincrement())
+  plantDataId       Int      @unique
+  analysisResult    String   // 元语言分析结果
+  reasoningProcess  String   // 推理过程
+  finalConclusion   String   // 最终结论
+  timestamp         DateTime @default(now())
+  
+  plantData         PlantData @relation(fields: [plantDataId], references: [id])
+}
+
+model PlantDialogue {
+  id                Int      @id @default(autoincrement())
+  plantDataId       Int      @unique
+  dialogue          String   // 植物对话内容
+  mood              String   // 植物情绪
+  personality       String   // 植物性格特征
+  timestamp         DateTime @default(now())
+  
+  plantData         PlantData @relation(fields: [plantDataId], references: [id])
+} 
