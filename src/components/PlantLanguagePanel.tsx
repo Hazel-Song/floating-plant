@@ -40,6 +40,7 @@ export default function PlantLanguagePanel({ analysisResult, plantData }: MetaAn
     if (analysisResult && plantData && !metaStructure) {
       performMetaAnalysis(analysisResult, plantData);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [analysisResult, plantData]);
 
   const performMetaAnalysis = async (result: string, data: PlantData) => {

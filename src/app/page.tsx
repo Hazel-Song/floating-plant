@@ -1,13 +1,30 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import DataCleaningPanel from '@/components/DataCleaningPanel';
 import DataAnalysisPanel from '@/components/DataAnalysisPanel';
 import PlantLanguagePanel from '@/components/PlantLanguagePanel';
 import CommunicationPanel from '@/components/CommunicationPanel';
 
+interface PlantData {
+  id: number;
+  timestamp: string;
+  temperature: number;
+  humidity: number;
+  lightIntensity: number;
+  soilMoisture: number;
+  soilPh: number;
+  airQuality: number;
+  leafColor: string;
+  leafSize: number;
+  stemHeight: number;
+  rootHealth: string;
+  growthRate: number;
+  imageUrl?: string;
+}
+
 export default function Home() {
-  const [selectedPlantData, setSelectedPlantData] = useState<any>(null);
+  const [selectedPlantData, setSelectedPlantData] = useState<PlantData | null>(null);
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedTimeRange, setSelectedTimeRange] = useState('today');
@@ -28,64 +45,7 @@ export default function Home() {
     '2024-06-11'  // plant6.png
   ];
 
-  // 获取植物观测数据
-  const getPlantObservationData = (dateString: string) => {
-    const eventIndex = plantEventDates.indexOf(dateString);
-    if (eventIndex === -1) return null;
 
-    const observationData = [
-      {
-        date: '2024-06-06',
-        time: '09:15:23',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-001',
-        imageUrl: '/plant1.png',
-        description: '初始状态记录，种子萌发阶段'
-      },
-      {
-        date: '2024-06-07',
-        time: '14:30:45',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-002',
-        imageUrl: '/plant2.png',
-        description: '首次根系伸展，胚根突破种皮'
-      },
-      {
-        date: '2024-06-08',
-        time: '10:22:18',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-003',
-        imageUrl: '/plant3.png',
-        description: '子叶展开，光合作用开始'
-      },
-      {
-        date: '2024-06-09',
-        time: '16:45:12',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-004',
-        imageUrl: '/plant4.png',
-        description: '真叶形成，根系发达'
-      },
-      {
-        date: '2024-06-10',
-        time: '11:33:07',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-005',
-        imageUrl: '/plant5.png',
-        description: '茎部伸长，叶片增大'
-      },
-      {
-        date: '2024-06-11',
-        time: '13:18:56',
-        coordinates: '31.2304°N, 121.4737°E',
-        experimentId: 'PFL-006',
-        imageUrl: '/plant6.png',
-        description: '生长旺盛，多层叶片结构完整'
-      }
-    ];
-
-    return observationData[eventIndex];
-  };
 
   // 模拟植物事件数据
   const plantEvents = [
@@ -507,7 +467,7 @@ export default function Home() {
       {/* 底部四个功能卡片 */}
       <div className="absolute bottom-0 left-0 right-0 z-20">
         <div className="grid grid-cols-4 gap-0 shadow-lg">
-          {mainCards.map((card, index) => (
+          {mainCards.map((card) => (
             <div
               key={card.id}
               className="relative"

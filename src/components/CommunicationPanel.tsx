@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface PlantData {
   id: number;
@@ -43,6 +43,7 @@ export default function CommunicationPanel({ metaAnalysis, plantData }: PlantDia
     if (metaAnalysis && plantData && !plantPersonality) {
       generatePlantPersonality();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaAnalysis, plantData]);
 
   const generatePlantPersonality = async () => {
@@ -194,7 +195,7 @@ export default function CommunicationPanel({ metaAnalysis, plantData }: PlantDia
               <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 px-3 py-2 border-b border-gray-200 flex-shrink-0">
                 <div className="text-gray-800 font-medium text-xs mb-1">Entity_7749</div>
                 <p className="text-gray-700 text-xs leading-relaxed italic truncate">
-                  "我们之间的对话跨越了物种的界限..."
+                  &quot;我们之间的对话跨越了物种的界限...&quot;
                 </p>
               </div>
 

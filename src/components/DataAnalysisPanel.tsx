@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface PlantData {
   id: number;
@@ -61,7 +61,7 @@ export default function DataAnalysisPanel({ plantData, onAnalysisComplete }: Age
   const [isDebating, setIsDebating] = useState(false);
   const [currentRound, setCurrentRound] = useState(0);
   const [finalResult, setFinalResult] = useState<string | null>(null);
-  const [streamingMessageId, setStreamingMessageId] = useState<number | null>(null);
+
 
   const streamMessage = async (fullMessage: string, messageIndex: number) => {
     const words = fullMessage.split('');
@@ -292,7 +292,7 @@ export default function DataAnalysisPanel({ plantData, onAnalysisComplete }: Age
               <span className="text-gray-800 font-mono text-lg">AI</span>
             </div>
             <h3 className="text-gray-800 text-lg font-medium mb-2">解析单元待命中</h3>
-            <p className="text-gray-600">选择AI单元并点击"启动解析"来分析生命体数据</p>
+            <p className="text-gray-600">选择AI单元并点击&quot;启动解析&quot;来分析生命体数据</p>
           </div>
         )}
       </div>

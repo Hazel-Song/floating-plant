@@ -24,7 +24,7 @@ interface PlantDataPanelProps {
 }
 
 export default function DataCleaningPanel({ onDataSelect, selectedData, selectedObservationDate }: PlantDataPanelProps) {
-  const [plantDataList, setPlantDataList] = useState<PlantData[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [currentDate, setCurrentDate] = useState<string>('2024-06-09');
@@ -44,7 +44,7 @@ export default function DataCleaningPanel({ onDataSelect, selectedData, selected
 
   // 获取观测数据详情
   const getObservationInfo = (dateString: string) => {
-    const infoMap: { [key: string]: any } = {
+    const infoMap: { [key: string]: { date: string; time: string; coordinates: string; experimentId: string } } = {
       '2024-06-06': { date: '2024-06-06', time: '09:15:23', coordinates: '31.2304°N, 121.4737°E', experimentId: 'PFL-001' },
       '2024-06-07': { date: '2024-06-07', time: '14:30:45', coordinates: '31.2304°N, 121.4737°E', experimentId: 'PFL-002' },
       '2024-06-08': { date: '2024-06-08', time: '10:22:18', coordinates: '31.2304°N, 121.4737°E', experimentId: 'PFL-003' },
@@ -60,6 +60,7 @@ export default function DataCleaningPanel({ onDataSelect, selectedData, selected
     const targetDate = selectedObservationDate || '2024-06-09'; // 默认使用6.9号
     setCurrentDate(targetDate);
     loadPlantData(targetDate);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedObservationDate]);
 
   const loadPlantData = async (dateString: string = '2024-06-09') => {
@@ -92,7 +93,7 @@ export default function DataCleaningPanel({ onDataSelect, selectedData, selected
       // 模拟网络延迟
       await new Promise(resolve => setTimeout(resolve, 300));
       
-      setPlantDataList([mockData]);
+
       onDataSelect(mockData);
       
       // 图片加载完成后再隐藏loading
