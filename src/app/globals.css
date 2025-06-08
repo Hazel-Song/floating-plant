@@ -317,4 +317,35 @@ body {
   .data-viz-ring {
     @apply w-48 h-48;
   }
+}
+
+/* 为上半部分（第一页）的内容区域覆盖文本颜色 */
+.page-one .gpt-text-primary {
+  @apply text-gray-800 font-medium;
+}
+
+.page-one .gpt-text-secondary {
+  @apply text-gray-600;
+}
+
+.page-one .gpt-text-muted {
+  @apply text-gray-500;
+}
+
+/* 为上半部分覆盖按钮和输入框样式 */
+.page-one .gpt-button-secondary {
+  @apply bg-white hover:bg-gray-50 text-gray-800 border-gray-300 hover:border-gray-400;
+}
+
+.page-one .gpt-input {
+  @apply bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:border-green-500;
+}
+
+/* 为上半部分覆盖边框颜色，保持白色背景 */
+.page-one .border-white\/10 {
+  @apply border-gray-300;
+}
+
+.page-one .border-white\/20 {
+  @apply border-gray-400;
 } 

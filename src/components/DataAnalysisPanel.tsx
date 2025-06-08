@@ -55,7 +55,7 @@ const AGENTS = {
   }
 };
 
-export default function AgentDebatePanel({ plantData, onAnalysisComplete }: AgentDebatePanelProps) {
+export default function DataAnalysisPanel({ plantData, onAnalysisComplete }: AgentDebatePanelProps) {
   const [activeAgents, setActiveAgents] = useState<(keyof typeof AGENTS)[]>(['physiological', 'environmental', 'validation']);
   const [messages, setMessages] = useState<AgentMessage[]>([]);
   const [isDebating, setIsDebating] = useState(false);
@@ -198,15 +198,15 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
               title={agent.description}
             >
               <div className="w-8 h-8 bg-white/10 border border-white/20 flex items-center justify-center mb-2">
-                <span className="text-white font-mono text-xs">{agent.avatar}</span>
+                <span className="text-gray-800 font-mono text-xs">{agent.avatar}</span>
               </div>
-              <div className="text-center">
-                <div className="gpt-text-primary font-medium text-xs mb-1">{agent.name}</div>
-                <div className="gpt-text-muted text-xs leading-tight">{agent.description}</div>
-              </div>
+                              <div className="text-center">
+                  <div className="text-gray-800 font-medium text-xs mb-1">{agent.name}</div>
+                  <div className="text-gray-600 text-xs leading-tight">{agent.description}</div>
+                </div>
               {activeAgents.includes(key as keyof typeof AGENTS) && (
                 <div className="w-4 h-4 bg-[#10a37f] flex items-center justify-center mt-2">
-                  <span className="text-white text-xs font-mono">ON</span>
+                  <span className="text-gray-800 text-xs font-mono">ON</span>
                 </div>
               )}
             </button>
@@ -234,7 +234,7 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
           </button>
           
           {isDebating && (
-            <div className="flex items-center space-x-2 gpt-text-secondary text-sm">
+            <div className="flex items-center space-x-2 text-gray-600 text-sm">
               <div className="loading-spinner"></div>
               <span>第 {currentRound}/5 轮分析中...</span>
             </div>
@@ -250,12 +250,12 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
             <div key={index} className={`agent-bubble ${agent.color} max-h-32 overflow-y-auto`}>
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-5 h-5 bg-white/10 border border-white/20 flex items-center justify-center">
-                  <span className="text-white font-mono text-xs">{agent.avatar}</span>
+                  <span className="text-gray-800 font-mono text-xs">{agent.avatar}</span>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="gpt-text-primary font-medium text-xs">{agent.name}</span>
-                    <span className="gpt-text-muted text-xs">
+                    <span className="text-gray-800 font-medium text-xs">{agent.name}</span>
+                    <span className="text-gray-600 text-xs">
                       R{msg.round} • {new Date(msg.timestamp).toLocaleTimeString('zh-CN', { 
                         hour: '2-digit', 
                         minute: '2-digit' 
@@ -264,7 +264,7 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
                   </div>
                 </div>
               </div>
-              <p className="gpt-text-secondary text-xs leading-relaxed">
+              <p className="text-gray-700 text-xs leading-relaxed">
                 {msg.isStreaming ? msg.displayedText : msg.message}
                 {msg.isStreaming && <span className="animate-pulse">|</span>}
               </p>
@@ -275,13 +275,13 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
         {/* 最终结果 */}
         {finalResult && (
           <div className="bg-gradient-to-br from-[#10a37f]/20 to-[#10a37f]/10 border border-[#10a37f]/30 p-6">
-            <h3 className="gpt-text-primary font-semibold mb-4 flex items-center">
+            <h3 className="text-gray-800 font-semibold mb-4 flex items-center">
               <div className="w-8 h-8 bg-[#10a37f]/20 flex items-center justify-center mr-3">
                 <span className="text-[#10a37f] font-mono text-xs">END</span>
               </div>
               解析协议完成
             </h3>
-            <pre className="gpt-text-secondary text-sm leading-relaxed whitespace-pre-wrap">{finalResult}</pre>
+            <pre className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{finalResult}</pre>
           </div>
         )}
 
@@ -289,10 +289,10 @@ export default function AgentDebatePanel({ plantData, onAnalysisComplete }: Agen
         {messages.length === 0 && !isDebating && (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-mono text-lg">AI</span>
+              <span className="text-gray-800 font-mono text-lg">AI</span>
             </div>
-            <h3 className="gpt-text-primary text-lg font-medium mb-2">解析单元待命中</h3>
-            <p className="gpt-text-secondary">选择AI单元并点击"启动解析"来分析生命体数据</p>
+            <h3 className="text-gray-800 text-lg font-medium mb-2">解析单元待命中</h3>
+            <p className="text-gray-600">选择AI单元并点击"启动解析"来分析生命体数据</p>
           </div>
         )}
       </div>
